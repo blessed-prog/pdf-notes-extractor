@@ -8,16 +8,16 @@ class HighlightsExtractor:
         doc = fitz.open(from_path)
         doc2 = fitz.open()
 
-        i = 0
+        pages_index = 0
         pages_hightlighted = 0
         for page in doc:
             highlights = self.handle_page(page)
             if highlights:
-                doc2.insert_pdf(doc, from_page=i, to_page=i)
+                doc2.insert_pdf(doc, from_page=pages_index, to_page=pages_index)
                 pages_hightlighted += 1
-            i += 1
+            pages_index += 1
 
-        if pages_hightlighted > 10:
+        if pages_hightlighted > 10 and pages_index > 25:
             doc2.save(to_path)
         else:
             doc2.close()
