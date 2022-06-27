@@ -3,8 +3,6 @@ import os
 
 class PdfFileIterator:
 
-    # os.path.getmtime(os.path.join(address, file))
-
     def iterate(self, dir_path: str):
         tree = os.walk(dir_path)
         for address, dirs, files in tree:

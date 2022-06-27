@@ -1,8 +1,29 @@
 from typing import List, Tuple
 import fitz
+from datetime import datetime
 
 
 class HighlightsExtractor:
+
+    def find_last_modify_time_from_annotations(self, file_path: str):
+        doc = fitz.open(file_path)
+
+        mod_time = 0
+
+        for page in doc:
+            annotation = page.firstAnnot
+            if annotation:
+                mod_time = max(mod_time, self._parse_time(annotation))
+                pass
+        return mod_time
+
+    def _parse_time(self, annotation):
+        to_parse = annotation.info['modDate']
+        try:
+            return datetime.strptime(to_parse[2:14], '%Y%m%d%H%M').timestamp()
+        except ValueError:
+            print(f'Could not extract timestamp from {to_parse}')
+            return 0
 
     def extract_annotated_pages(self, from_path: str, to_path: str):
         doc = fitz.open(from_path)
