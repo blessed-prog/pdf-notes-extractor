@@ -11,7 +11,7 @@ class HighlightsExtractor:
         mod_time = 0
 
         for page in doc:
-            annotation = page.firstAnnot
+            annotation = page.first_annot
             if annotation:
                 mod_time = max(mod_time, self._parse_time(annotation))
                 pass
@@ -45,11 +45,11 @@ class HighlightsExtractor:
         pass
 
     def handle_page(self, page):
-        wordlist = page.getText("words")  # list of words on page
+        wordlist = page.get_text("words")  # list of words on page
         wordlist.sort(key=lambda w: (w[3], w[0]))  # ascending y, then x
 
         highlights = []
-        annot = page.firstAnnot
+        annot = page.first_annot
         while annot:
             if annot.type[0] == 8:
                 highlights.append(self._parse_highlight(annot, wordlist))

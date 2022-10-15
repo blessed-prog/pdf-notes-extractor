@@ -5,7 +5,7 @@ from pdf_file_iterator import PdfFileIterator
 
 if __name__ == "__main__":
 
-    dir_to_scan = '.'
+    dir_to_scan = '/Users/andreycheboksarov/Yandex.Disk.localized/Lib'
 
     for filepath in PdfFileIterator().iterate(dir_to_scan):
         print(filepath)
